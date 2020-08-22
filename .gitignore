@@ -1,7 +1,16 @@
 atlcrime.csv
-
+scrt.py
 secret_settings.py
 playlist.m3u
+/tests
+/csv
+/json
+test.py
+*.geojson
+*.json
+india.py
+scrt.py
+test1.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
