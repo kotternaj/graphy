@@ -19,20 +19,21 @@ app.title = 'Atlanta Crime - 2017'
 
 # # API keys and datasets
 # mapbox_access_token = MBT
-crime_data = {}
+# crime_data = {}
 
 df = pd.read_csv('csv/crime2017.csv')
 dfc = df[['occur_date', 'UC2 Literal','x', 'y']]
 dfc = dfc.rename(columns={'occur_date': 'date', 'UC2 Literal': 'crime'})
 dfc['date'] = pd.to_datetime(dfc['date'])
 dfc['month'] = dfc['date'].dt.month
-crimes = dfc.crime.unique().tolist()
-months = dfc.month.unique().tolist()
-months.sort()
+# crimes = dfc.crime.unique().tolist()
+# months = dfc.month.unique().tolist()
 
-for c in crimes:
-    total = dfc['crime'].str.contains(c).sum()
-    crime_data.update({c:total})
+crime_data = dfc.groupby(['month']).apply(lambda grp: grp.groupby('crime')['month'].agg('count').to_dict()).to_dict()
+
+# for c in crimes:
+#     total = dfc['crime'].str.contains(c).sum()
+#     crime_data.update({c:total})
 print(crime_data)
 print(months)
 print(dfc.columns)
